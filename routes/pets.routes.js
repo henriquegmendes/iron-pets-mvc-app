@@ -14,6 +14,11 @@ router.get('/', (req, res) => {
     });
 });
 
+// Entregar o HTML com o formulario de cadastro do novo pet
+router.get('/new', (req, res) => {
+  res.render('newPet');
+});
+
 // /:petId ---> isso significa que pode vir escrito QUALQUER COISA na URL
 router.get('/:petId', (req, res) => {
   const { petId } = req.params;
@@ -23,6 +28,27 @@ router.get('/:petId', (req, res) => {
       console.log(petFromDatabase)
       res.render('petDetail', { pet: petFromDatabase });
     });
+});
+
+// Receber os dados do FORM para inserir um novo PET no banco
+router.post('/new', (req, res) => {
+ // BODY ou CORPO DA REQUISICAO!!
+  const { petName, petImage, petSpecies, petBirthDate } = req.body;
+
+  const newPet = {
+    name: petName,
+    image: petImage,
+    species: petSpecies,
+    birthDate: petBirthDate,
+    owner: '604abb4e7d9820011720cb45',
+  };
+
+  Pet.create(newPet)
+    .then(() => {
+      res.redirect('/pets');
+    })
+    .catch(error => console.log(error));
+
 });
 
 module.exports = router;

@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const hbs = require('hbs');
+const bodyParser = require('body-parser');
 
 const homeRoutes = require('./routes/home.routes');
 const petsRoutes = require('./routes/pets.routes');
@@ -13,6 +14,9 @@ require('./config/mongodb.config');
 
 // Dentro da pasta public é onde se encontram os arquivos estáticos do projeto
 app.use(express.static('public'));
+
+// Configurar Body parser para capturar informações de Formulários que são enviados pelo corpo da requisição
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configurações do HBS
 app.set('view engine', 'hbs');
