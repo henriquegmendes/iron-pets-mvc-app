@@ -1,4 +1,41 @@
 <h4>Nome: {{pet.name}}</h4>
 <img src="{{pet.image}}" alt="{{pet.name}} photo">
-<p>Espécie: {{pet.species}}</p>
+<p>Espécie: {{petSpeciesText}}</p>
 <p>Dono: {{pet.owner.name}}</p>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPet">
+  Editar dados do meu pet
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="editPet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar meu pet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {{!-- <form action="/pets/edit?pedId={{pet._id}}" method="post">  PASSANDO O ID VIA REQ.QUERY (QUERY STRING) --}}
+      <form action="/pets/edit/{{pet._id}}" method="post"> {{!-- PASSANDO O ID VIA REQ.PARAMS (ROTA) --}}
+        <div class="modal-body">
+          <input type="text" name="petName" placeholder="Nome do pet" value="{{pet.name}}">
+          <input type="text" name="petImage" placeholder="Link da foto do pet" value="{{pet.image}}">
+          <select name="petSpecies">
+            {{#each speciesValues}}
+              <option value="{{this.value}}">{{this.text}}</option>
+            {{/each}}
+          </select>
+          <input type="date" name="petBirthDate" placeholder="Data que seu pet nasceu" value="{{pet.birthDate}}">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+</div>

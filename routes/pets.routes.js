@@ -1,4 +1,5 @@
 const express = require('express');
+const { format } = require('date-format-parse');
 
 const Pet = require('../models/Pet');
 const User = require('../models/User');
@@ -25,8 +26,27 @@ router.get('/:petId', (req, res) => {
 
   Pet.findById(petId).populate('owner')
     .then(petFromDatabase => {
-      console.log(petFromDatabase)
-      res.render('petDetail', { pet: petFromDatabase });
+      const birthDateParsed = format(petFromDatabase.birthDate, 'YYYY-MM-DD');
+
+      const mongoDbObject = petFromDatabase.toJSON();
+
+      const newObject = { ...mongoDbObject, birthDate: birthDateParsed };
+
+      const speciesValues = [
+        { value: 'dog', text: 'Cachorro' },
+        { value: 'cat', text: 'Gato' },
+        { value: 'parrot', text: 'Papagaio' },
+      ];
+
+      const petIndex = speciesValues.findIndex((specieOption) => {
+        return specieOption.value === petFromDatabase.species;
+      });
+
+      const foundSpecieValue = speciesValues[petIndex];
+      speciesValues.splice(petIndex, 1);
+      speciesValues.unshift(foundSpecieValue);
+
+      res.render('petDetail', { pet: newObject, speciesValues, petSpeciesText: speciesValues[petIndex].text });
     });
 });
 
@@ -48,6 +68,18 @@ router.post('/new', (req, res) => {
       res.redirect('/pets');
     })
     .catch(error => console.log(error));
+
+});
+
+router.post('/edit/:petId', (req, res) => {
+  const { petName, petImage, petSpecies, petBirthDate } = req.body;
+  const { petId } = req.params;
+
+  Pet.findByIdAndUpdate(petId, { name: petName, image: petImage, species: petSpecies, birthDate: petBirthDate })
+    .then(() => {
+      res.redirect(`/pets/${petId}`);
+    })
+    .catch(error => console.log(errror));
 
 });
 
