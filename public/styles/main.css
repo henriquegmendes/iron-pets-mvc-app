@@ -23,3 +23,8 @@ nav > a:hover {
   color: red;
   transition: color 0.5s;
 }
+
+.warning {
+  display: block;
+  color: red;
+}

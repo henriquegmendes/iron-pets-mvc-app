@@ -1,0 +1,34 @@
+<h1>Bem vindo ao Iton Pets! Faça seu cadastro e aproveite nossos incríveis serviços</h1>
+
+<form action="/signup" method="post">
+  <div>
+    <input type="text" name="userName" placeholder="Digite seu nome completo">
+    {{#if userNameError}}
+      <span class="warning">{{userNameError}}</span>
+    {{/if}}
+  </div>
+
+  <div>
+    <input type="email" name="userEmail" placeholder="Digite seu email">
+    {{#if userEmailError}}
+      <span class="warning">{{userEmailError}}</span>
+    {{/if}}
+  </div>
+
+  <div>
+    <input type="password" name="userPassword" placeholder="Crie a sua senha de acesso">
+    {{#if userPasswordError}}
+      <span class="warning">{{userPasswordError}}</span>
+    {{/if}}
+  </div>
+
+  <div>
+    <label for="userBirthDate">Insira sua data de nascimento</label>
+    <input type="date" name="userBirthDate" id="userBirthDate">
+    {{#if userBirthDateError}}
+      <span class="warning">{{userBirthDateError}}</span>
+    {{/if}}
+  </div>
+
+  <button type="submit">Efetuar cadastro</button>
+</form>

@@ -4,6 +4,7 @@ const express = require('express');
 const hbs = require('hbs');
 
 const homeRoutes = require('./routes/home.routes');
+const authRoutes = require('./routes/auth.routes')
 const petsRoutes = require('./routes/pets.routes');
 
 const app = express();
@@ -24,6 +25,7 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 // Configuração das rotas do express
 app.use('/', homeRoutes);
+app.use('/', authRoutes);
 app.use('/pets', petsRoutes);
 
 // catch 404 and render a not-found.hbs template
