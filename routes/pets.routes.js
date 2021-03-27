@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
   Pet.find({ owner: req.session.currentUser._id, name: { $regex: new RegExp(petName, 'i') } })
     .then(petsFromDatabase => {
-      res.render('pets', { pets: petsFromDatabase });
+      res.render('pets', { pets: petsFromDatabase, currentUser: req.session.currentUser });
     });
 });
 
@@ -46,7 +46,7 @@ router.get('/:petId', (req, res) => {
       speciesValues.splice(petIndex, 1);
       speciesValues.unshift(foundSpecieValue);
 
-      res.render('petDetail', { pet: newObject, speciesValues, petSpeciesText: speciesValues[petIndex].text });
+      res.render('petDetail', { pet: newObject, speciesValues, petSpeciesText: speciesValues[petIndex].text, currentUser: req.session.currentUser });
     });
 });
 

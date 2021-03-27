@@ -8,13 +8,18 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
+  {{#if currentUser}}
   <nav>
     <a href="/pets">Meus Pets</a>
     <a href="/pets/new">Cadastrar Novo Pet</a>
-    <a href="/login">Login</a>
-    <a href="/signup">Signup</a>
     <a href="/logout">Logout</a>
   </nav>
+  {{else}}
+    <nav>
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+    </nav>
+  {{/if}}
 
   {{{body}}}
 
