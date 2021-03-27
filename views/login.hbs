@@ -1,0 +1,19 @@
+<h1>Bem vindo ao Iton Pets! Faça seu login e aproveite nossos incríveis serviços</h1>
+
+<form action="/login" method="post">
+  <div>
+    <input type="text" name="userEmail" placeholder="Digite seu email">
+    {{#if userEmailError}}
+      <span class="warning">{{userEmailError}}</span>
+    {{/if}}
+  </div>
+
+  <div>
+    <input type="password" name="userPassword" placeholder="Digite sua senha">
+    {{#if userPasswordError}}
+      <span class="warning">{{userPasswordError}}</span>
+    {{/if}}
+  </div>
+
+  <button type="submit">Efetuar login</button>
+</form>

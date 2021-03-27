@@ -62,4 +62,35 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+router.get('/login', (req, res) => {
+  res.render('login');
+});
+
+router.post('/login', async (req, res) => {
+  try {
+    const { userEmail, userPassword } = req.body;
+    // verificação dos campos
+
+    const userFromDb = await User.findOne({ email: userEmail });
+
+    if (!userFromDb) {
+      return res.render('login', { userEmailError: 'Usuário ou senha incorretos', userPasswordError: 'Usuário ou senha incorretos' });
+    }
+
+    const isPasswordValid = bcrypt.compareSync(userPassword, userFromDb.password); // 123456
+
+    if (!isPasswordValid) {
+      return res.render('login', { userEmailError: 'Usuário ou senha incorretos', userPasswordError: 'Usuário ou senha incorretos' });
+    }
+
+    // Iniciar uma sessão para este usuário (após o almoço)
+
+    // Encaminha o usuário para a sua área logada
+    res.redirect('/pets');
+
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 module.exports = router;
