@@ -9,7 +9,7 @@ const router = express();
 router.get('/', (req, res) => {
   const { petName } = req.query;
 
-  Pet.find({ owner: '604abb4e7d9820011720cb45', name: { $regex: new RegExp(petName, 'i') } })
+  Pet.find({ owner: req.session.currentUser._id, name: { $regex: new RegExp(petName, 'i') } })
     .then(petsFromDatabase => {
       res.render('pets', { pets: petsFromDatabase });
     });
@@ -60,7 +60,7 @@ router.post('/new', (req, res) => {
     image: petImage,
     species: petSpecies,
     birthDate: petBirthDate,
-    owner: '604abb4e7d9820011720cb45',
+    owner: req.session.currentUser._id,
   };
 
   Pet.create(newPet)

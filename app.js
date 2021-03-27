@@ -7,7 +7,12 @@ const homeRoutes = require('./routes/home.routes');
 const authRoutes = require('./routes/auth.routes')
 const petsRoutes = require('./routes/pets.routes');
 
+const sessionConfig = require('./config/session.config');
+
 const app = express();
+
+// Configurar o express-session (cookie & session)
+sessionConfig(app);
 
 // Estabalecendo conexão com o nosso banco de dados MongoDB
 require('./config/mongodb.config');
@@ -24,8 +29,22 @@ app.set('views', __dirname + '/views');
 hbs.registerPartials(__dirname + '/views/partials');
 
 // Configuração das rotas do express
+
+// HomeRoutes e AuthRoutes são rotas PUBLICAS
 app.use('/', homeRoutes);
 app.use('/', authRoutes);
+
+// Essa callback dentro do app.use vai ser chamada em TODOS os requests que chegarem aqui.
+// BLOQUEADOR DE REQUESTS (FILTRO)
+app.use((req, res, next) => {
+  if (req.session.currentUser) {
+    return next();
+  }
+
+  res.redirect('/login');
+});
+
+// PetsRoutes são rotas PROTEGIDAS
 app.use('/pets', petsRoutes);
 
 // catch 404 and render a not-found.hbs template

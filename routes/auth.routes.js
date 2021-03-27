@@ -84,6 +84,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Iniciar uma sessão para este usuário (após o almoço)
+    req.session.currentUser = userFromDb;
 
     // Encaminha o usuário para a sua área logada
     res.redirect('/pets');
@@ -91,6 +92,12 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-})
+});
+
+router.get('/logout', (req, res) => {
+  req.session.destroy();
+
+  res.redirect('/login');
+});
 
 module.exports = router;
