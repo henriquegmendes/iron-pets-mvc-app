@@ -29,7 +29,7 @@ router.post('/signup', async (req, res) => {
     const userFromDb = await User.findOne({ email: userEmail }); // transforma um método assíncrono em síncrono
 
     if (userFromDb) {
-      return res.render('signup', { userEmailError: 'Este e-mail já foi cadastrado no nosso sistema. Por favor escolha outro' });
+      return res.render('signup', { userEmailErrors: ['Este e-mail já foi cadastrado no nosso sistema. Por favor escolha outro'] });
     }
 
     // Encriptar a senha que recebemos do usuário
@@ -64,13 +64,13 @@ router.post('/login', async (req, res) => {
     const userFromDb = await User.findOne({ email: userEmail });
 
     if (!userFromDb) {
-      return res.render('login', { userEmailError: 'Usuário ou senha incorretos', userPasswordError: 'Usuário ou senha incorretos' });
+      return res.render('login', { userEmailErrors: ['Usuário ou senha incorretos'], userPasswordErrors: ['Usuário ou senha incorretos'] });
     }
 
     const isPasswordValid = bcrypt.compareSync(userPassword, userFromDb.password); // 123456
 
     if (!isPasswordValid) {
-      return res.render('login', { userEmailError: 'Usuário ou senha incorretos', userPasswordError: 'Usuário ou senha incorretos' });
+      return res.render('login', { userEmailErrors: ['Usuário ou senha incorretos'], userPasswordErrors: ['Usuário ou senha incorretos'] });
     }
 
     // Iniciar uma sessão para este usuário (após o almoço)
