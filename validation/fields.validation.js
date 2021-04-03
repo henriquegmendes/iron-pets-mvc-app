@@ -18,7 +18,7 @@ const nameValidation = (nameField) => {
     errors.push('Máximo de 50 caracteres');
   }
 
-  if (nameField.replace(/[A-Za-z]/g, '').length !== 0) { // para verificar se no nome contém caracteres que não são letras
+  if (nameField.replace(/[A-Za-z ]/g, '').length !== 0) { // para verificar se no nome contém caracteres que não são letras
     errors.push('Somente letras são aceitas');
   }
 
