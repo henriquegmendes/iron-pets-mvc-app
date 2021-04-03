@@ -3,15 +3,15 @@
 <form action="/login" method="post">
   <div>
     <input type="text" name="userEmail" placeholder="Digite seu email">
-    {{#if userEmailError}}
-      <span class="warning">{{userEmailError}}</span>
+    {{#if userEmailErrors}}
+      <span class="warning">{{userEmailErrors.[0]}}</span>
     {{/if}}
   </div>
 
   <div>
     <input type="password" name="userPassword" placeholder="Digite sua senha">
-    {{#if userPasswordError}}
-      <span class="warning">{{userPasswordError}}</span>
+    {{#if userPasswordErrors}}
+      <span class="warning">{{userPasswordErrors.[0]}}</span>
     {{/if}}
   </div>
 
