@@ -64,4 +64,4 @@ app.use((err, req, res, next) => {
   }
 }); // SE TIVERMOS ALGUM ERRO NA APLICACAO, ELE CAI AQUI DENTRO
 
-app.listen(3000, () => console.log('App rodando na porta 3000'));
+app.listen(process.env.PORT, () => console.log(`App rodando na porta ${process.env.PORT}`));
