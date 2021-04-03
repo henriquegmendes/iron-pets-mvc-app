@@ -58,7 +58,8 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { userEmail, userPassword } = req.body;
-    // verificação dos campos
+
+    // verificação dos campos --- Implementar com base na rota de signup ;-)
 
     const userFromDb = await User.findOne({ email: userEmail });
 
