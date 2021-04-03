@@ -18,8 +18,8 @@ const nameValidation = (nameField) => {
     errors.push('Máximo de 50 caracteres');
   }
 
-  if (nameField.replace(/[A-Za-z]/g, '').length !== 0) {
-    errors.push('Máximo de 50 caracteres');
+  if (nameField.replace(/[A-Za-z]/g, '').length !== 0) { // para verificar se no nome contém caracteres que não são letras
+    errors.push('Somente letras são aceitas');
   }
 
   return errors;
@@ -65,7 +65,7 @@ const imageValidation = (imageField) => {
     errors.push('Campo não pode ser vazio');
   }
   
-  if (!urlRegex.test(imageField)) {
+  if (!urlRegex.test(imageField)) { // valida o formato da URL utilizando um regex
     errors.push('Formato inválido');
   }
 

@@ -4,6 +4,8 @@ const { format } = require('date-format-parse');
 const Pet = require('../models/Pet');
 const User = require('../models/User');
 
+const fileUploader = require('../config/cloudinary.config'); // Vamos utilizar como um MIDDLEWARE DENTRO DA ROTA DE CRIAÇÃO DE PETS!!!
+
 const router = express();
 
 router.get('/', (req, res) => {
@@ -50,14 +52,15 @@ router.get('/:petId', (req, res) => {
     });
 });
 
+
 // Receber os dados do FORM para inserir um novo PET no banco
-router.post('/new', (req, res) => {
+router.post('/new', fileUploader.single('petImage'),  (req, res) => {
  // BODY ou CORPO DA REQUISICAO!!
-  const { petName, petImage, petSpecies, petBirthDate } = req.body;
+  const { petName, petSpecies, petBirthDate } = req.body;
 
   const newPet = {
     name: petName,
-    image: petImage,
+    image: req.file.path,
     species: petSpecies,
     birthDate: petBirthDate,
     owner: req.session.currentUser._id,

@@ -1,7 +1,7 @@
 <div>
-  <form action="/pets/new" method="post">
+  <form action="/pets/new" method="post" enctype="multipart/form-data">
     <input type="text" name="petName" placeholder="Nome do pet">
-    <input type="text" name="petImage" placeholder="Link da foto do pet">
+    <input type="file" name="petImage" placeholder="Link da foto do pet">
     <select name="petSpecies">
       <option value="dog">Cachorro</option>
       <option value="cat">Gato</option>
