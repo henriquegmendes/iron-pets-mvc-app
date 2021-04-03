@@ -3,30 +3,32 @@
 <form action="/signup" method="post">
   <div>
     <input type="text" name="userName" placeholder="Digite seu nome completo">
-    {{#if userNameError}}
-      <span class="warning">{{userNameError}}</span>
+    {{#if userNameErrors}}
+      {{#each userNameErrors}}
+        <span class="warning">{{this}}</span>
+      {{/each}}
     {{/if}}
   </div>
 
   <div>
-    <input type="email" name="userEmail" placeholder="Digite seu email">
-    {{#if userEmailError}}
-      <span class="warning">{{userEmailError}}</span>
+    <input type="text" name="userEmail" placeholder="Digite seu email">
+    {{#if userEmailErrors}}
+      <span class="warning">{{userEmailErrors.[0]}}</span>
     {{/if}}
   </div>
 
   <div>
     <input type="password" name="userPassword" placeholder="Crie a sua senha de acesso">
-    {{#if userPasswordError}}
-      <span class="warning">{{userPasswordError}}</span>
+    {{#if userPasswordErrors}}
+      <span class="warning">{{userPasswordErrors.[0]}}</span>
     {{/if}}
   </div>
 
   <div>
     <label for="userBirthDate">Insira sua data de nascimento</label>
     <input type="date" name="userBirthDate" id="userBirthDate">
-    {{#if userBirthDateError}}
-      <span class="warning">{{userBirthDateError}}</span>
+    {{#if userBirthDateErrors}}
+      <span class="warning">{{userBirthDateErrors.[0]}}</span>
     {{/if}}
   </div>
 

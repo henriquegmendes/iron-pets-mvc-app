@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 
 const User = require('../models/User');
 
+const { validateSignup } = require('../validation/validations');
+
 const router = express();
 
 router.get('/signup', (req, res) => {
@@ -12,23 +14,10 @@ router.get('/signup', (req, res) => {
 router.post('/signup', async (req, res) => {
   // console.log(req.body)
 
-  const { userName, userEmail, userPassword, userBirthDate } = req. body;
+  const { userName, userEmail, userPassword, userBirthDate } = req.body;
 
   // Verificar se ele enviou as infos necessarias (todas)
-  const validationErrors = {};
-
-  if (userName.trim().length === 0) {
-    validationErrors.userNameError = 'Campo é Obrigatório';
-  }
-  if (userEmail.trim().length === 0) {
-    validationErrors.userEmailError = 'Campo é Obrigatório';
-  }
-  if (userPassword.trim().length === 0) {
-    validationErrors.userPasswordError = 'Campo é Obrigatório';
-  }
-  if (userBirthDate.trim().length === 0) {
-    validationErrors.userBirthDateError = 'Campo é Obrigatório';
-  }
+  const validationErrors = validateSignup(userName, userEmail, userPassword, userBirthDate);
 
   // se houver pelo menos um erro...
   if (Object.keys(validationErrors).length > 0) {
